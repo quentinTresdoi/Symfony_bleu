@@ -13,10 +13,10 @@ class ChallengeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void{
         $builder
-        ->add('Title', TextType::class)
-        ->add('Description', TextareaType::class)
-        ->add('Points',NumberType::class)
-        ->add('Categories',TextType::class)
-        ->add('Soumettre', SubmitType::class);
+        ->add('title', TextType::class, ['label' => 'Nom'])
+        ->add('description', TextareaType::class, ['label' => 'Description'])
+        ->add('points',NumberType::class, ['label' => 'Points'])
+        ->add('categories',TextType::class, ['label' => 'Catégorie'])
+        ->add('submit', SubmitType::class, ['label' => 'Soumettre']);
     }
 }
