@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ChallengesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 
@@ -25,6 +27,14 @@ class Challenges
 
     #[ORM\Column(length: 255)]
     private ?string $categories = null;
+
+    #[ORM\OneToMany(mappedBy: 'idChallenge', targetEntity: UsersChallenges::class)]
+    private Collection $usersChallenges;
+
+    public function __construct()
+    {
+        $this->usersChallenges = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +85,36 @@ class Challenges
     public function setCategories(string $categories): static
     {
         $this->categories = $categories;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UsersChallenges>
+     */
+    public function getUsersChallenges(): Collection
+    {
+        return $this->usersChallenges;
+    }
+
+    public function addUsersChallenge(UsersChallenges $usersChallenge): static
+    {
+        if (!$this->usersChallenges->contains($usersChallenge)) {
+            $this->usersChallenges->add($usersChallenge);
+            $usersChallenge->setIdChallenge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersChallenge(UsersChallenges $usersChallenge): static
+    {
+        if ($this->usersChallenges->removeElement($usersChallenge)) {
+            // set the owning side to null (unless already changed)
+            if ($usersChallenge->getIdChallenge() === $this) {
+                $usersChallenge->setIdChallenge(null);
+            }
+        }
 
         return $this;
     }
