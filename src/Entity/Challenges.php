@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ChallengesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: ChallengesRepository::class)]
 class Challenges
@@ -16,7 +17,7 @@ class Challenges
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column]
