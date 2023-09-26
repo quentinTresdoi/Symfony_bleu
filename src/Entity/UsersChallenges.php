@@ -15,11 +15,11 @@ class UsersChallenges
 
     #[ORM\ManyToOne(inversedBy: 'usersChallenges')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $idUser = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'usersChallenges')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Challenges $idChallenge = null;
+    private ?Challenges $challenge = null;
 
     #[ORM\Column]
     private ?int $status = null;
@@ -29,26 +29,26 @@ class UsersChallenges
         return $this->id;
     }
 
-    public function getIdUser(): ?User
+    public function getUser(): ?User
     {
-        return $this->idUser;
+        return $this->user;
     }
 
-    public function setIdUser(?User $idUser): static
+    public function setUser(?User $user): static
     {
-        $this->idUser = $idUser;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getIdChallenge(): ?Challenges
+    public function getChallenge(): ?Challenges
     {
-        return $this->idChallenge;
+        return $this->$challenge;
     }
 
-    public function setIdChallenge(?Challenges $idChallenge): static
+    public function setChallenge(?Challenges $challenge): static
     {
-        $this->idChallenge = $idChallenge;
+        $this->$challenge = $challenge;
 
         return $this;
     }
