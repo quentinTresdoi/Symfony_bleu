@@ -1,0 +1,13 @@
+<h1>Admin panel</h1>
+<div>
+{% for challenge in challenges %}
+    <div>
+        <span>{{challenge.categories}}</span>
+        <span>{{ challenge.title }}</span>
+        <span>{{challenge.points}}</span>
+        <a href={{ url('admin_edit_challenge', {'id': challenge.id} ) }}>Modifier</a>
+        <a href={{ url('admin_delete_challenge', {'id': challenge.id} ) }}>Supprimer</a>
+    </div>
+{% endfor %}
+</div>
+<a href={{ url('admin_add_challenge')}}><button>Ajouter une tâche</button></a>

@@ -17,6 +17,6 @@ class ChallengeType extends AbstractType
         ->add('Description', TextareaType::class)
         ->add('Points',NumberType::class)
         ->add('Categories',TextType::class)
-        ->add('Ajouter', SubmitType::class);
+        ->add('Soumettre', SubmitType::class);
     }
 }
