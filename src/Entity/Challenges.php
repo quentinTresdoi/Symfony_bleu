@@ -28,7 +28,7 @@ class Challenges
     #[ORM\Column(length: 255)]
     private ?string $categories = null;
 
-    #[ORM\OneToMany(mappedBy: 'idChallenge', targetEntity: UsersChallenges::class)]
+    #[ORM\OneToMany(mappedBy: 'challenge', targetEntity: UsersChallenges::class)]
     private Collection $usersChallenges;
 
     public function __construct()
@@ -101,7 +101,7 @@ class Challenges
     {
         if (!$this->usersChallenges->contains($usersChallenge)) {
             $this->usersChallenges->add($usersChallenge);
-            $usersChallenge->setIdChallenge($this);
+            $usersChallenge->setChallenge($this);
         }
 
         return $this;
@@ -111,8 +111,8 @@ class Challenges
     {
         if ($this->usersChallenges->removeElement($usersChallenge)) {
             // set the owning side to null (unless already changed)
-            if ($usersChallenge->getIdChallenge() === $this) {
-                $usersChallenge->setIdChallenge(null);
+            if ($usersChallenge->getChallenge() === $this) {
+                $usersChallenge->setChallenge(null);
             }
         }
 

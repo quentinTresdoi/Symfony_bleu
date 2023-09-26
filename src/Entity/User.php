@@ -30,7 +30,7 @@ class User
     #[ORM\Column]
     private ?int $points = null;
 
-    #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: UsersChallenges::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UsersChallenges::class)]
     private Collection $usersChallenges;
 
     public function __construct()
@@ -115,7 +115,7 @@ class User
     {
         if (!$this->usersChallenges->contains($usersChallenge)) {
             $this->usersChallenges->add($usersChallenge);
-            $usersChallenge->setIdUser($this);
+            $usersChallenge->setUser($this);
         }
 
         return $this;
@@ -125,8 +125,8 @@ class User
     {
         if ($this->usersChallenges->removeElement($usersChallenge)) {
             // set the owning side to null (unless already changed)
-            if ($usersChallenge->getIdUser() === $this) {
-                $usersChallenge->setIdUser(null);
+            if ($usersChallenge->getUser() === $this) {
+                $usersChallenge->setUser(null);
             }
         }
 
