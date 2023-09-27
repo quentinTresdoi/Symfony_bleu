@@ -1,0 +1,1 @@
+php bin/console app:import-challenges
