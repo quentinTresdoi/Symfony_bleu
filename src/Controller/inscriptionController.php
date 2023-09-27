@@ -26,21 +26,19 @@ class inscriptionController extends AbstractController
             ->add('pseudo', TextType::class)
             ->add('email', EmailType::class)
             ->add('password', PasswordType::class)
+            // ->add('Validepassword', PasswordType::class)
 
             ->add('save', SubmitType::class, array('label' => 'S\'inscrire'))
             ->getForm();
-
-        
-
-        $form->handleRequest($request); // hydratation du form 
+            print('$user');
+            if($user->setEmail("$user")&&$user->getEmail("$user")){}
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPoints(0);
             $user->setRole(0);
-             // test si le formulaire a été soumis et s'il est valide
-            $em = $this->getDoctrine()->getManager(); // on récupère la gestion des entités
-            $em->persist($user); // on effectue les mise à jours internes
-            $em->flush(); // on effectue la mise à jour vers la base de données
-            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
         }
 
         return $this->render('Inscription/pageinscription.html.twig', array(
