@@ -1,21 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+{% extends 'base.html.twig' %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body class="bg-blue-500">
-        <h1>Admin space</h1>
-        {{ form(addTask) }}
 
-    </body>
-</html>
+{% block title %}Ajout | challenge{% endblock %}
+
+{% block body %}
+        <h1 class="text-4xl font-bold text-emerald-950">Ajout d'un challenge 📝</h1>
+
+        <div class="mt-10 max-w-xl">
+            {{ form_start(addTask) }}
+            {{ form_errors(addTask) }}
+            {{ form_row(addTask.title) }}
+            {{ form_row(addTask.description) }}
+            {{ form_row(addTask.points) }}
+            {{ form_row(addTask.categories) }}
+
+            <div class="mt-10 bg-green-400 p-3 rounded-md hover:shadow-xl hover:shadow-green-200 hover:bg-green-300 active:scale-95 transition-all delay-100 ease-in-out w-fit">
+                {{ form_row(addTask.submit, { "label": "Ajouter d'un challenge" }) }}
+            </div>
+            
+            {{ form_end(addTask) }}
+        </div>
+        
+
+{% endblock %}

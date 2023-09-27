@@ -62,6 +62,7 @@ class AdminController extends AbstractController{
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+            return $this->redirectToRoute('admin_panel');
 
         }
 
