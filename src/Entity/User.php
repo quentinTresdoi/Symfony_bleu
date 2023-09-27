@@ -50,14 +50,25 @@ class User
         return $this->id;
     }
 
-    public function getPseudo(): ?string
+    public function getFirstname(): ?string
     {
-        return $this->pseudo;
+        return $this->firstname;
     }
 
-    public function setPseudo(string $pseudo): static
+    public function setFirstname(string $firstname): static
     {
-        $this->pseudo = $pseudo;
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
 
         return $this;
     }
