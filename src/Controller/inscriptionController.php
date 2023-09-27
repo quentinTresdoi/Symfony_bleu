@@ -23,7 +23,8 @@ class inscriptionController extends AbstractController
     {
         $user = new User();
         $form = $this->createFormBuilder($user)
-            ->add('pseudo', TextType::class)
+            ->add('firstname', TextType::class)
+            ->add('lastname', TextType::class)
             ->add('email', EmailType::class)
             ->add('password', PasswordType::class)
             // ->add('Validepassword', PasswordType::class)
