@@ -19,7 +19,7 @@ class AdminController extends AbstractController{
 
         $em->flush();
 
-        return $this->render('admin_panel.html.twig', [
+        return $this->render('admin/admin_panel.html.twig', [
             'challenges' => $challenge
         ]);
     }
@@ -42,7 +42,7 @@ class AdminController extends AbstractController{
 
         }
 
-        return $this->render('admin_add_task.html.twig', [
+        return $this->render('admin/admin_add_task.html.twig', [
             'addTask' => $form->createView()
         ]);
 
@@ -65,7 +65,7 @@ class AdminController extends AbstractController{
 
         }
 
-        return $this->render('admin_edit_challenge.html.twig', [
+        return $this->render('admin/admin_edit_challenge.html.twig', [
             'editTask' => $form->createView()
         ]);
     }
