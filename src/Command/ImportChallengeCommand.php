@@ -29,7 +29,9 @@ class ImportChallengeCommand extends Command
     {
         // ... put here the code to create the user
         $response = "";                      //Création du string avec la réponse
-        if (($handle = fopen("C:/Users/Nilsd/OneDrive/Bureau/Cours L2/2023-09-25 Symfony/Symfony_Bleu/ecogeste.csv", "r")) !== FALSE) {  //vérifie que le fichier CSV est correct   
+
+        
+        if (($handle = fopen("./ecogeste.csv", "r")) !== FALSE) {  //vérifie que le fichier CSV est correct   
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {               //Lis l'ensemble des lignes du fichier
                 //$num = count($data);                                                //Création de num avec le nombre de colonne du CSV                
                 if ($data[1] !== ""){                                               //Vérifie que la colonne titre ne soit pas vide
