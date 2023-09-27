@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin panel{% endblock %}
+
+{% block body %}
+
+<h1 class="text-4xl font-bold text-emerald-950">Espace administrateur</h1>
+<div class="grid grid-cols-3 gap-5">
+{% for challenge in challenges %}
+    <div class="flex flex-col p-4 gap-1.5 bg-white border rounded-xl shadow-xl shadow-gray">
+
+        <div class="flex flex-col gap-2">
+
+            <span class="block">{{challenge.categories}}</span>
+
+            <div class="flex flex-row justify-between">
+                <span class="block max-w-sm truncate">{{ challenge.title }}</span>
+                <span class="block">{{challenge.points}}</span>
+            </div>
+           
+        </div>
+        <div class="flex gap-2">
+            <a  class="block bg-orange-200 rounded px-1" href={{ url('admin_edit_challenge', {'id': challenge.id} ) }}> <span class="opacity-50 font-semibold text-sm">Modifier</span></a>
+            <a class="block bg-red-200 rounded px-1" href={{ url('admin_delete_challenge', {'id': challenge.id} ) }}> <span class="opacity-50 font-semibold text-sm">Supprimer</span></a>
+        </div>
+    </div>
+{% endfor %}
+</div>
+<a href={{ url('admin_add_challenge')}}><button>Ajouter une tâche</button></a>
+
+{% endblock %}
