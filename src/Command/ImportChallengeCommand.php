@@ -48,7 +48,7 @@ class ImportChallengeCommand extends Command
                     ########## Ajout dans BDD ###########
                     $challenge = new Challenges(); // initialise l'entité
                     $challenge->setTitle($data[1]); // on set les différents champs
-                    if ($data[1] !== ""){
+                    if ($data[2] !== ""){
                     $challenge->setCategories($data[2]);
                     }
                     $challenge->setDescription($data[4]." ".$data[5]." ".$data[6]);
