@@ -31,7 +31,7 @@ class inscriptionController extends AbstractController
             ->add('save', SubmitType::class, array('label' => 'S\'inscrire'))
             ->getForm();
             print('$user');
-            if($user->setEmail("$user")&&$user->getEmail("$user")){}
+            
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPoints(0);
