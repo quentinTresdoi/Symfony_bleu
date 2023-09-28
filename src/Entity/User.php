@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -35,6 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UsersChallenges::class,fetch:"EAGER")]
+    private Collection $usersChallenges;
 
     public function getId(): ?int
     {
@@ -121,6 +125,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+       /**
+     * @return Collection<int, UsersChallenges>
+     */
+    public function getUsersChallenges(): Collection
+    {
+        return $this->usersChallenges;
+    }
+
+    public function addUsersChallenge(UsersChallenges $usersChallenge): static
+    {
+        if (!$this->usersChallenges->contains($usersChallenge)) {
+            $this->usersChallenges->add($usersChallenge);
+            $usersChallenge->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersChallenge(UsersChallenges $usersChallenge): static
+    {
+        if ($this->usersChallenges->removeElement($usersChallenge)) {
+            // set the owning side to null (unless already changed)
+            if ($usersChallenge->getUser() === $this) {
+                $usersChallenge->setUser(null);
+            }
+        }
 
         return $this;
     }
