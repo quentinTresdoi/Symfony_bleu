@@ -22,7 +22,7 @@ class UsersChallenges
     private ?Challenges $challenge = null;
 
     #[ORM\Column]
-    private ?int $status = null;
+    private ?int $status = 0;
 
     public function getId(): ?int
     {
@@ -43,12 +43,12 @@ class UsersChallenges
 
     public function getChallenge(): ?Challenges
     {
-        return $this->$challenge;
+        return $this->challenge;
     }
 
     public function setChallenge(?Challenges $challenge): static
     {
-        $this->$challenge = $challenge;
+        $this->challenge = $challenge;
 
         return $this;
     }
