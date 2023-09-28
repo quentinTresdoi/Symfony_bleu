@@ -2,45 +2,68 @@
 
 {% block title %}Profil{% endblock %}
 
+{% import 'macros.html.twig' as macros %}
+
 {% block body %}
 
-<h1 class="text-4xl font-bold text-emerald-950">Profil</h1>
+<h1 class="text-4xl font-bold text-emerald-950">Mes informations</h1>
 <div class="mt-10">
-
     <div>
-
-        <div class="flex gap-2"> profil information
-        
+        <div class="flex gap-2">
             <div class="flex flex-col gap-2">
-                <span>{{user.getFirstname()}}</span>
-                <span>{{user.getLastname()}}</span>
-                <span>{{user.getEmail()}}</span>
-                <span>{{role}}</span>
+                <div>
+                    <p class="font-semibold text-3xl">{{user.getLastname()}} {{user.getFirstname()}} </p>
+                    <span>{{role}}</span>
+                    <span class="block">{{user.getEmail()}}</span>
+                </div>
+                
+                
+                
             </div>
         </div>
 
-        <div> Stats
+        <div>
+            <h2 class="text-3xl font-bold text-emerald-950 mt-10">Mes statistiques</h2>
 
-            <div>
-                <span>{{user.getPoints()}}</span>
-                {% for challenge in challengevalid %}
-                <div class="flex flex-col p-4 gap-1.5 bg-white border rounded-xl shadow-xl shadow-gray hover:scale-110 transition-all ease-in-out delay-75">
-
-                    <div class="flex flex-col gap-2">
-
-                        <span class="block">{{challenge.categories}}</span>
-
-                        <div class="flex flex-row justify-between">
-                            <span class="block max-w-sm truncate">{{ challenge.title }}</span>
-                            <span class="block">{{challenge.points}}</span>
-                        </div>
-                
-                    </div>
+            <div class="flex mt-10 gap-10">
+                <div class="flex flex-col items-center p-8 bg-amber-200 rounded-xl">
+                    <span class="opacity-50 font-semibold">{{user.points}}</span>
+                    <span class="opacity-50 font-semibold">points</span>
                 </div>
-        {% endfor %}
-
+                <div class="flex flex-col items-center p-8 bg-green-200 rounded-xl">
+                    <span class="opacity-50 font-semibold">{{completedTaskNumber}}</span>
+                    <span class="opacity-50 font-semibold">Tâches accomplies</span>
+                </div>
             </div>
-           
+            
+        </div>
+
+
+        <div>
+            <h2 class="text-3xl font-bold text-emerald-950 mt-10">Mes tâches accomplies</h2>
+            <div class="mt-10 grid grid-cols-3 gap-5">
+                    {% for challenge in challengevalid %}
+                    <div class=" h-26 flex flex-col p-4 gap-1.5 bg-white border rounded-xl shadow-xl shadow-gray hover:scale-110 transition-all ease-in-out delay-75">
+
+                        <div class="flex flex-row gap-4 items-center">
+
+                            <span class="block">{{ macros.getCategoryIcon(challenge.categories | lower)}}</span>
+                            <div class="flex flex-row justify-between w-full items-center gap-4">
+                            <span class="block max-w-sm">
+                                {% if challenge.title | length > 40 %}
+                                    {{ challenge.title | slice(0, 40) ~ '...' }}
+                                {% else %}
+                                    {{ challenge.title }}
+                                {% endif %}
+                            </span>
+                            <span class="block bg-slate-200 px-3 rounded-md"> <span class="font-semibold opacity-50">{{challenge.points}}</span></span>
+                        </div>
+            
+                    </div>
+            </div>
+            {% endfor %}
+            </div>
+                       
         </div>
         
     </div>
