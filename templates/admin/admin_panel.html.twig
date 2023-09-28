@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin panel{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-4xl font-bold text-emerald-950">Espace administrateur 📊</h1>
+    <a href={{ url('admin_add_challenge')}}><button class="mt-10 bg-green-400 p-3 rounded-md hover:shadow-xl hover:shadow-green-200 hover:bg-green-300 active:scale-95 transition-all delay-100 ease-in-out"> <span class="opacity-50 font-semibold">Ajouter une nouvelle tâche</span> </button></a>
+    <h2 class="text-3xl font-bold text-emerald-950 mt-10">Liste des tâches 📝</h2>
+    <div class="mt-10 grid grid-cols-3 gap-5">
+        {% for challenge in challenges %}
+            <div class="flex flex-col p-4 gap-1.5 bg-white border rounded-xl shadow-xl shadow-gray hover:scale-110 transition-all ease-in-out delay-75">
+
+                <div class="flex flex-col gap-2">
+
+                    <span class="block">{{challenge.categories}}</span>
+
+                    <div class="flex flex-row justify-between">
+                        <span class="block max-w-sm truncate">{{ challenge.title }}</span>
+                        <span class="block">{{challenge.points}}</span>
+                    </div>
+                
+                </div>
+                <div class="flex gap-2">
+                    <a  class="block bg-orange-200 rounded px-1" href={{ url('admin_edit_challenge', {'id': challenge.id} ) }}> <span class="opacity-50 font-semibold text-sm">Modifier</span></a>
+                    <a class="block bg-red-200 rounded px-1" href={{ url('admin_delete_challenge', {'id': challenge.id} ) }}> <span class="opacity-50 font-semibold text-sm">Supprimer</span></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

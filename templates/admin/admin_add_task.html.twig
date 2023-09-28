@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Ajout | challenge{% endblock %}
+
+{% block body %}
+        <h1 class="text-4xl font-bold text-emerald-950">Ajout d'un challenge 📝</h1>
+
+        <div class="mt-10 max-w-xl">
+            {{ form_start(addTask) }}
+            {{ form_errors(addTask) }}
+            {{ form_row(addTask.title) }}
+            {{ form_row(addTask.description) }}
+            {{ form_row(addTask.points) }}
+            {{ form_row(addTask.categories) }}
+
+            <div class="mt-10 bg-green-400 p-3 rounded-md hover:shadow-xl hover:shadow-green-200 hover:bg-green-300 active:scale-95 transition-all delay-100 ease-in-out w-fit">
+                {{ form_row(addTask.submit, { "label": "Ajouter d'un challenge" }) }}
+            </div>
+            
+            {{ form_end(addTask) }}
+        </div>
+        
+
+{% endblock %}
