@@ -15,10 +15,14 @@ class HomeController extends AbstractController{
         return $element->getChallenge()->getId();
     }
 
+    public function mapArrayChallenge($element){
+        return $element->getChallenge();
+    }
+
     public function getCurrentUserChallenge($user){
         $currentChallenge = $this->getDoctrine()->getRepository(UsersChallenges::class)->findBy(['user'=>$user, 'status'=>0]);
         if ($currentChallenge) {
-           return $currentChallenge[0]->getChallenge();
+           return array_map([$this,'mapArrayChallenge'],$currentChallenge);
         }else{
             return null;
         }
@@ -46,7 +50,7 @@ class HomeController extends AbstractController{
 
         return $this->render('home/home.html.twig', [
             "challenges" => $challenges,
-            "currentChallenge" => $this->getCurrentUserChallenge($user)
+            "currentChallenges" => $this->getCurrentUserChallenge($user)
         ]);
     }
 }

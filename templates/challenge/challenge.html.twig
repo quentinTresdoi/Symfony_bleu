@@ -17,7 +17,9 @@
     <p> <span class="font-bold">Points</span> : {{challenge.points}}</p>
 
     {% if app.user %}
-        {% if userChallenge %}
+        {% if userAlreadyCompleted %}
+            <p class="primary-btn"><span class="opacity-60 font-bold">Déjà fait !</span></p>
+        {% elseif userChallenge %}
             <a class="primary-btn" href={{ url('valider_challenge', {'id': challenge.id} ) }}><span class="opacity-60 font-bold">Valider</span></a>
         {% else %}
             <a class="primary-btn" href={{ url('accepter_challenge', {'id': challenge.id} ) }}><span class="opacity-60 font-bold">Faire une bonne action</span></a>
