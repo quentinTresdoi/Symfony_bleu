@@ -44,7 +44,7 @@ class accepterController extends AbstractController
             $userchallenge->setStatus(1);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            return new Response("Challenge valider");            
+            return $this->redirectToRoute('homepage');            
         }
         else{
             return new Response("Erreur");

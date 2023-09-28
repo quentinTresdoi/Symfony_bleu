@@ -1,19 +1,26 @@
 {% extends 'base.html.twig' %}
 
+{% import 'macros.html.twig' as macros %}
+
 {% block title %}Details | Challenge{% endblock %}
 
 {% block body %}
 {#  #}
 <h1 class="text-4xl font-bold text-emerald-950">Challenge n°{{challenge.id}}</h1>
 
-<div class="mt-10">
-    <h2 class="text-2xl font-bold text-emerald-950">{{challenge.title}}</h2>
-        <p>Catégorie : {{challenge.categories}}</p>
-    
-    <p>{{challenge.description}}</p>
-    <p>Points : {{challenge.points}}</p>
+<div class="mt-10 flex flex-col gap-4  max-w-4xl">
+    <div class="block w-64 ">{{ macros.getCategoryIcon(challenge.categories | lower)}}</div>
 
-    <a href={{ url('accepter_challenge', {'id': challenge.id} ) }}>Accepter</a>
+    <h2 class="text-2xl font-bold text-emerald-950">{{challenge.title}}</h2>
+
+    <p>{{challenge.description}}</p>
+    <p> <span class="font-bold">Points</span> : {{challenge.points}}</p>
+
+    {% if userChallenge %}
+        <a class="primary-btn" href={{ url('valider_challenge', {'id': challenge.id} ) }}><span class="opacity-60 font-bold">Valider</span></a>
+    {% else %}
+        <a class="primary-btn" href={{ url('accepter_challenge', {'id': challenge.id} ) }}><span class="opacity-60 font-bold">Faire une bonne action</span></a>
+    {% endif %}
 </div>
 
 
