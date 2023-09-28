@@ -4,19 +4,42 @@
 
 {% block body %}
 
-<h1>Profil</h1>
-<div>
-{% for user in user %}
+<h1 class="text-4xl font-bold text-emerald-950">Profil</h1>
+<div class="mt-10">
+
     <div>
 
-        <div> profil information
+        <div class="flex gap-2"> profil information
+        
+            <div class="flex flex-col gap-2">
+                <span>{{user.getFirstname()}}</span>
+                <span>{{user.getLastname()}}</span>
+                <span>{{user.getEmail()}}</span>
+                <span>{{role}}</span>
+            </div>
+           {% comment %}  {% endcomment %}
+        </div>
 
-            <span>{{user.firstname}}</span>
+        <div> Stats
 
             <div>
-                <span>{{ user.lastname }}</span>
-                <span hidden>{{user.password}}</span>
-                <span>{{user.email}}</span>
+                <span>{{user.getPoints()}}</span>
+                {% for challenge in challengevalid %}
+                <div class="flex flex-col p-4 gap-1.5 bg-white border rounded-xl shadow-xl shadow-gray hover:scale-110 transition-all ease-in-out delay-75">
+
+                    <div class="flex flex-col gap-2">
+
+                        <span class="block">{{challenge.categories}}</span>
+
+                        <div class="flex flex-row justify-between">
+                            <span class="block max-w-sm truncate">{{ challenge.title }}</span>
+                            <span class="block">{{challenge.points}}</span>
+                        </div>
+                
+                    </div>
+                </div>
+        {% endfor %}
+
             </div>
            
         </div>
