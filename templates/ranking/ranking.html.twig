@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Classement{% endblock %}
+
+{% block body %}
+        <h1 class="text-4xl font-bold text-emerald-950">Classement 🏆</h1>
+
+        <div class="mt-10 max-w-xl flex flex-col gap-4">
+            {% for user in allUser %}
+            <div class="flex justify-between rounded-xl shadow-lg shadow-gray">
+                <div class="{% if loop.index == 1 %} bg-yellow-200 {% elseif loop.index == 2 %} bg-slate-200 {% elseif loop.index == 3 %} bg-amber-400 {% else %} bg-white {% endif %} border-red-50 justify-self-end pr-6 p-4 w-24 rounded-xl"><span class="font-bold opacity-60"># {{loop.index}}</span></div>
+                <div class="pr-6 p-4 w-auto col-span-2">{{ user.firstname }} {{ user.lastname}} </div>
+                <div class="pr-6 p-4 w-auto justify-self-end">{{user.points}} pts.</div>
+            </div>
+            
+            {% endfor %}
+        </div>
+        
+
+{% endblock %}

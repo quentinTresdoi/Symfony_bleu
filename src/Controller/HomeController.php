@@ -23,9 +23,13 @@ class HomeController extends AbstractController{
         if ($user) {
             $allUserChallenge = $user->getUsersChallenges()->getSnapshot();
 
-            $allUserChallengeId = array_map([$this, 'mapArray'],$allUserChallenge);
-    
-            $challenges = $this->getDoctrine()->getRepository(Challenges::class)->getSomesChallenges($allUserChallengeId);
+            if ($allUserChallenge) {
+                $allUserChallengeId = array_map([$this, 'mapArray'],$allUserChallenge);
+                $challenges = $this->getDoctrine()->getRepository(Challenges::class)->getSomesChallenges($allUserChallengeId);
+            }else{
+                $challenges = $this->getDoctrine()->getRepository(Challenges::class)->findAll();
+            }
+            
         }else{
             $challenges = $this->getDoctrine()->getRepository(Challenges::class)->findAll();
         }
