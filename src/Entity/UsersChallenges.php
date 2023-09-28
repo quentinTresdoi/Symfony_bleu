@@ -22,7 +22,7 @@ class UsersChallenges
     private ?Challenges $challenge = null;
 
     #[ORM\Column]
-    private ?int $status = null;
+    private ?int $status = 0;
 
     public function getId(): ?int
     {
