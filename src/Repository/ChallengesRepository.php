@@ -43,7 +43,7 @@ class ChallengesRepository extends ServiceEntityRepository
 
         return $query->execute();
     }
-
+  
 //    /**
 //     * @return Challenges[] Returns an array of Challenges objects
 //     */
