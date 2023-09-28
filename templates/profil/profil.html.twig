@@ -6,30 +6,23 @@
 
 <h1>Profil</h1>
 <div>
-
+{% for user in user %}
     <div>
 
         <div> profil information
 
+            <span>{{user.firstname}}</span>
+
             <div>
-                <span>{{user.getFirstname()}}</span>
-                <span>{{user.getLastname()}}</span>
-                <span>{{user.getEmail()}}</span>
-                <span>{{role}}</span>
+                <span>{{ user.lastname }}</span>
+                <span hidden>{{user.password}}</span>
+                <span>{{user.email}}</span>
             </div>
            
         </div>
-
-        <div> Stats
-
-            <div>
-                <span>{{user.getPoints()}}</span>
-            </div>
-           
-        </div>
-
         
     </div>
+{% endfor %}
 </div>
 {% endblock %}
 
