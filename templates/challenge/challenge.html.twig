@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Details | Challenge{% endblock %}
+
+{% block body %}
+{#  #}
+<h1 class="text-4xl font-bold text-emerald-950">Challenge n°{{challenge.id}}</h1>
+
+<div class="mt-10">
+    <h2 class="text-2xl font-bold text-emerald-950">{{challenge.title}}</h2>
+        <p>Catégorie : {{challenge.categories}}</p>
+    
+    <p>{{challenge.description}}</p>
+    <p>Points : {{challenge.points}}</p>
+
+    <a href={{ url('accepter_challenge', {'id': challenge.id} ) }}>Accepter</a>
+</div>
+
+
+{% endblock %}
+
+

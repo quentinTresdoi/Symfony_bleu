@@ -12,21 +12,30 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
-    </head>
+    </head> 
     <body>
-        <nav>
-        <div> 
-            <span>Menu</span>
-            <ul>
-                <li><a href="/">Accueil</a></li>
-                <li><a href="/profil">Profil</a></li>
-                <li><a href="/admin">Admin</a></li>
-                <li><a href="/ranking">Classement</a></li>
-                <li><a href="/ranking">Classement</a></li>
-                <li><a href="/logout">Déconnexion</a></li>
-            </ul>
-        </div>
+        <header class="fixed left-0 border-r-2 h-full top-0 pr-10">
+            <nav>
+            <div class="flex flex-col px-10"> 
+                <span class="mt-40">Menu</span>
+                <ul class="flex flex-col mt-10 gap-4 text-neutral-500">
+                    <li><a href="/">Accueil</a></li>
+                    {% if app.user %}
+                        <li><a href="/profil">Profil</a></li>
+                        {% if 'ROLE_ADMIN' in app.user.getRoles %} <li><a href="/admin">Admin</a></li> {% endif %}
+                    {% endif %}
+                    <li><a href="/ranking">Classement</a></li>
+
+                    {% if app.user%}
+                        <li><a href="/logout">Déconnexion</a></li>
+                    {% else %}
+                        <li><a href="/login">Connexion</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </nav>
+        </header>
+        
         {% block body %}{% endblock %}
     </body>
 </html>
