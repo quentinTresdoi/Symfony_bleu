@@ -15,6 +15,15 @@ class HomeController extends AbstractController{
         return $element->getChallenge()->getId();
     }
 
+    public function getCurrentUserChallenge($user){
+        $currentChallenge = $this->getDoctrine()->getRepository(UsersChallenges::class)->findBy(['user'=>$user, 'status'=>0]);
+        if ($currentChallenge) {
+           return $currentChallenge[0]->getChallenge();
+        }else{
+            return null;
+        }
+    }
+
     #[Route('/', name:"homepage")]
     public function generateChallenge(){
         $user = $this->getUser();
@@ -36,7 +45,8 @@ class HomeController extends AbstractController{
         
 
         return $this->render('home/home.html.twig', [
-            "challenges" => $challenges
+            "challenges" => $challenges,
+            "currentChallenge" => $this->getCurrentUserChallenge($user)
         ]);
     }
 }

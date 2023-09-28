@@ -10,6 +10,33 @@
 
 <div class="mt-10">
 
+{% if currentChallenge %}
+    <h2 class="text-3xl font-bold text-emerald-950"> Tâches en cours</h2>
+     <a class="grid grid-cols-3 mt-10" href={{ url('challenge_details', {'id': currentChallenge.id} ) }}>
+        <div class=" h-26 flex flex-col p-4 gap-1.5 bg-white border rounded-xl shadow-xl shadow-gray hover:scale-110 transition-all ease-in-out delay-75">
+
+                    <div class="flex flex-row gap-4 items-center">
+
+                        <span class="block">{{ macros.getCategoryIcon(currentChallenge.categories | lower)}}</span>
+                        <div class="flex flex-row justify-between w-full items-center gap-4">
+                            <span class="block max-w-sm">
+                                {% if currentChallenge.title | length > 40 %}
+                                    {{ currentChallenge.title | slice(0, 40) ~ '...' }}
+                                {% else %}
+                                    {{ currentChallenge.title }}
+                                {% endif %}
+                            </span>
+                            <span class="block bg-slate-200 px-3 rounded-md"> <span class="font-semibold opacity-50">{{currentChallenge.points}}</span></span>
+                        </div>
+                    
+                    </div>
+    </div>
+    </a>
+</div>
+{% endif %}
+
+<div class="mt-10">
+
 <h2 class="text-3xl font-bold text-emerald-950"> Tâches disponibles</h2>
  <div class="mt-10 grid grid-cols-3 gap-5">
         {% for challenge in challenges %}
