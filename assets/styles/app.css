@@ -3,7 +3,7 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;800&display=swap');
 
-body{
+body {
     background-color: white;
     max-width: 1280px;
     margin: 10rem auto;

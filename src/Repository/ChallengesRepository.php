@@ -21,17 +21,6 @@ class ChallengesRepository extends ServiceEntityRepository
         parent::__construct($registry, Challenges::class);
     }
 
-    public function getSomesChallenges($expectIdArray){
-
-        $qb = $this->createQueryBuilder('p')
-        ->where('p.id not in (:expectIdArray)')
-        ->setParameter('expectIdArray', $expectIdArray);
-
-        $query = $qb->getQuery();
-
-        return $query->execute();
-    }
-
 //    /**
 //     * @return Challenges[] Returns an array of Challenges objects
 //     */
