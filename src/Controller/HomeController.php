@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController{
-
+    //
     public function mapArray($element){
         return $element->getChallenge()->getId();
     }
