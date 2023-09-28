@@ -19,7 +19,11 @@ class accepterController extends AbstractController
             'challenge' => $challenge,
             'user' => $this->getUser()
         ]);
-        if ($userchallenge == null){        //Vérification si le userChallenge existe déjà
+        $actif = $this->getDoctrine()->getRepository(UsersChallenges::class)->findOneBy([     
+            'user' => $this->getUser(),
+            'status' => 0
+        ]);
+        if ($userchallenge == null and $actif == null){        //Vérification si le userChallenge existe déjà
             $challengeAccepter = new UsersChallenges();     //Création du userChallenge pour le user et challenge recupérer 
             $challengeAccepter->setUser($this->getUser());
             $challengeAccepter->setChallenge($challenge);
@@ -29,7 +33,7 @@ class accepterController extends AbstractController
             return new Response("Challenge accepter");            
         }
         else{
-            return new Response("L'utilisateur a déjà accépter se challenge");
+            return new Response("L'utilisateur a déjà accepter un challenge");
         }
     }
     #[Route("/valider/{id}", name:"valider_challenge")]
