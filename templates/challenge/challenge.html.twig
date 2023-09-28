@@ -16,11 +16,16 @@
     <p>{{challenge.description}}</p>
     <p> <span class="font-bold">Points</span> : {{challenge.points}}</p>
 
-    {% if userChallenge %}
-        <a class="primary-btn" href={{ url('valider_challenge', {'id': challenge.id} ) }}><span class="opacity-60 font-bold">Valider</span></a>
+    {% if app.user %}
+        {% if userChallenge %}
+            <a class="primary-btn" href={{ url('valider_challenge', {'id': challenge.id} ) }}><span class="opacity-60 font-bold">Valider</span></a>
+        {% else %}
+            <a class="primary-btn" href={{ url('accepter_challenge', {'id': challenge.id} ) }}><span class="opacity-60 font-bold">Faire une bonne action</span></a>
+        {% endif %}
     {% else %}
-        <a class="primary-btn" href={{ url('accepter_challenge', {'id': challenge.id} ) }}><span class="opacity-60 font-bold">Faire une bonne action</span></a>
+         <a class="primary-btn" href={{ url('app_login') }}><span class="opacity-60 font-bold">Rejoignez-nous !</span></a>
     {% endif %}
+
 </div>
 
 
