@@ -23,10 +23,10 @@ class Challenges
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $points = null;
+    private ?int $points = 0;
 
     #[ORM\Column(length: 255)]
-    private ?string $categories = null;
+    private ?string $categories = "Autre";
 
     #[ORM\OneToMany(mappedBy: 'challenge', targetEntity: UsersChallenges::class)]
     private Collection $usersChallenges;

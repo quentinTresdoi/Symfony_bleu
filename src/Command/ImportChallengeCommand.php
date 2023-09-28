@@ -48,9 +48,11 @@ class ImportChallengeCommand extends Command
                     ########## Ajout dans BDD ###########
                     $challenge = new Challenges(); // initialise l'entité
                     $challenge->setTitle($data[1]); // on set les différents champs
+                    if ($data[2] !== ""){
                     $challenge->setCategories($data[2]);
+                    }
+                    $challenge->setPoints(random_int(5,15));
                     $challenge->setDescription($data[4]." ".$data[5]." ".$data[6]);
-                    $challenge->setPoints(0);
                     $this->em->persist( $challenge ); // on déclare une modification de type persist et la génération des différents liens entre entité
                     $this->em->flush(); // on effectue les différentes modifications sur la base de données
                 }
