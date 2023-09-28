@@ -31,7 +31,7 @@ class ChallengesRepository extends ServiceEntityRepository
 
         return $query->execute();
     }
-
+// 
     public function getChallengesbyId($expectIdArray){
 
         $qb = $this->createQueryBuilder('p')

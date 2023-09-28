@@ -45,11 +45,8 @@ class profileController extends AbstractController
             $allUserChallengeId = array_map([$this, 'mapArray'],$allUserChallengeStatus);
             
             $challenges = $this->getDoctrine()->getRepository(Challenges::class)->getChallengesbyId($allUserChallengeId);
-
-            dump($challenges);
-            die;
         }
-            
+            // tkt
         return $this->render('profil/profil.html.twig', [
             'user' => $user,
             'role' => $roles,
