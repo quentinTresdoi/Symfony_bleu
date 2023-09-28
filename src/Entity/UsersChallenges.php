@@ -43,12 +43,12 @@ class UsersChallenges
 
     public function getChallenge(): ?Challenges
     {
-        return $this->$challenge;
+        return $this->challenge;
     }
 
     public function setChallenge(?Challenges $challenge): static
     {
-        $this->$challenge = $challenge;
+        $this->challenge = $challenge;
 
         return $this;
     }
