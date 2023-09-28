@@ -11,29 +11,28 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController{
 
+    public function mapArray($element){
+        return $element->getChallenge()->getId();
+    }
+
     #[Route('/', name:"homepage")]
-
     public function generateChallenge(){
-
-        $challenge = $this->getDoctrine()->getRepository(Challenges::class)->find(20);
         $user = $this->getUser();
+        $challenges = [];
+        
+        if ($user) {
+            $allUserChallenge = $user->getUsersChallenges()->getSnapshot();
 
-        // $userChallenge = new UsersChallenges;
-
-        // $userChallenge->setChallenge($challenge);
-        // $userChallenge->setUser($user);
-        // $userChallenge->setStatus(0);
-
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($userChallenge);
-        // $em->flush();
-
-        $allUserChallenge = $user->getUsersChallenges();
-        dump($allUserChallenge->getSnapshot());
-        die;
+            $allUserChallengeId = array_map([$this, 'mapArray'],$allUserChallenge);
+    
+            $challenges = $this->getDoctrine()->getRepository(Challenges::class)->getSomesChallenges($allUserChallengeId);
+        }else{
+            $challenges = $this->getDoctrine()->getRepository(Challenges::class)->findAll();
+        }
+        
 
         return $this->render('home/home.html.twig', [
-            "challenges" => "tst"
+            "challenges" => $challenges
         ]);
     }
 }
