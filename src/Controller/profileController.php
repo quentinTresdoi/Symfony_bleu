@@ -7,18 +7,29 @@ use App\Entity\User;
 use App\Entity\Challenges;
 use App\Entity\UsersChallenges;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\Type\UserType;
 use Symfony\Component\HttpFoundation\Request;
 
 class profileController extends AbstractController
 {
+    public function mapArray($element){
+        return $element->getChallenge()->getid();
+    }
+    
+    public function filterArray($element){
+        return $element->getStatus() == 1 ;
+    }
     /**
      * @Route("/profil", name="app_profil")
      */
+
+
     public function showinformation(){
         // info user
             $user= $this->getUser();
+            $challenges = [];
             
             $roles=$user->getRoles();
             if($roles = ["ROLE_ADMIN"]){
@@ -26,18 +37,23 @@ class profileController extends AbstractController
             }else{
                 $roles = 'user';
             }
-            // challenge validate
-            $userchallenge= new UsersChallenges;
-            // $chanllengevalid= $challenges->getUsersChallenges();
-            // dump($chanllengevalid);
-            // die;
-            $iduser=$userchallenge->getuser();
-            dump($iduser);
+
+        if ($user) {
+            $allUserChallenge = $user->getUsersChallenges()->getSnapshot();
+
+            $allUserChallengeStatus = array_filter($allUserChallenge,[$this, 'filterArray']);
+            $allUserChallengeId = array_map([$this, 'mapArray'],$allUserChallengeStatus);
+            
+            $challenges = $this->getDoctrine()->getRepository(Challenges::class)->getChallengesbyId($allUserChallengeId);
+
+            dump($challenges);
             die;
+        }
             
         return $this->render('profil/profil.html.twig', [
             'user' => $user,
-            'role' => $roles
+            'role' => $roles,
+            'challengevalid' =>$challenges
         ]);
     }
        
