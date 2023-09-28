@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Challenges;
+use App\Entity\User;
 use App\Entity\UsersChallenges;
 use App\Form\Type\ChallengeType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,6 +11,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController{
+    public function allUserNumber(){
+        return count($this->getDoctrine()->getRepository(User::class)->findAll());
+    }
+
+    public function allChallengesCreated(){
+        return count($this->getDoctrine()->getRepository(Challenges::class)->findAll());
+    }
+
+    public function allChallengesCompleted(){
+        return count($this->getDoctrine()->getRepository(UsersChallenges::class)->findBy(['status'=>1]));
+    }
+
+    public function allChallengesOnDoing(){
+        return count($this->getDoctrine()->getRepository(UsersChallenges::class)->findBy(['status'=>0]));
+    }
 
     #[Route("/admin",name:"admin_panel")]
 
@@ -21,7 +37,11 @@ class AdminController extends AbstractController{
         $em->flush();
 
         return $this->render('admin/admin_panel.html.twig', [
-            'challenges' => $challenge
+            'challenges' => $challenge,
+            'allUsersNumber' => $this->allUserNumber(),
+            'allChallengesCreated' => $this->allChallengesCreated(),
+            'allChallengesCompleted' => $this->allChallengesCompleted(),
+            'allChallengesOnDoing' => $this->allChallengesOnDoing(),
         ]);
     }
     
