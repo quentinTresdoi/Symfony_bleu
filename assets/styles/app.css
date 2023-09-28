@@ -5,9 +5,18 @@
 
 body {
     background-color: white;
-    max-width: 1440px;
-    margin: auto;
-    margin-top: 10rem;
+    max-width: 1280px;
+    margin: 10rem auto;
     font-family: 'Inter', sans-serif;
     font-size: 20px;
+}
+
+@layer utilities{
+    .label-form{
+        @apply block text-green-950 text-sm mt-6
+    }
+
+    .input-form{
+        @apply mt-1 w-full border-b-2 border-neutral-300 p-2 focus:outline-none focus:ring-0 focus:border-green-300 focus:shadow-lg focus:shadow-green-200
+    }
 }

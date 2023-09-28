@@ -1,0 +1,11 @@
+{% use 'tailwind_2_layout.html.twig' %}
+
+{%- block form_label -%}
+    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block text-green-950 text-sm mt-6')) }) -%}
+    {{- parent() -}}
+{%- endblock form_label -%}
+
+{%- block widget_attributes -%}
+    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('mt-1 w-full border-b-2 border-neutral-300 p-2 focus:outline-none focus:ring-0 focus:border-green-300 focus:shadow-lg focus:shadow-green-200')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-gray-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('border-red-700')) }) -%}
+    {{- parent() -}}
+{%- endblock widget_attributes -%}
