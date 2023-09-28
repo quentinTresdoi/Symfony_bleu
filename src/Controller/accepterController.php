@@ -14,8 +14,8 @@ class accepterController extends AbstractController
 {
     #[Route("/accept/{id}", name:"accepter_challenge")]
     public function acceptTask($id){ 
-        $challenge = $this->getDoctrine()->getRepository(Challenges::class)->find($id);     //récupération du challenge grâce à l'ID dans le slug
-        $userchallenge = $this->getDoctrine()->getRepository(UsersChallenges::class)->findBy([      //récupération du UserChallenge grâce au challenge et au User connecter
+        $challenge = $this->getDoctrine()->getRepository(Challenges::class)->find($id);     //Récupération du challenge grâce à l'ID dans le slug
+        $userchallenge = $this->getDoctrine()->getRepository(UsersChallenges::class)->findBy([      //Récupération du UserChallenge grâce au challenge et au User connecter
             'challenge' => $challenge,
             'user' => $this->getUser()
         ]);
