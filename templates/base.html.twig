@@ -5,6 +5,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -12,8 +13,31 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
+    </head> 
+    <body class="flex flex-row">
+        <header class="sticky left-0 h-full top-0 pr-10">
+            <nav>
+            <div class="flex flex-col px-10"> 
+                <span class="mt-40">Menu</span>
+                <ul class="flex flex-col mt-10 gap-4 text-neutral-500">
+                    <li><a href="/">Accueil</a></li>
+                    {% if app.user %}
+                        <li><a href="/profil">Profil</a></li>
+                        {% if 'ROLE_ADMIN' in app.user.getRoles %} <li><a href="/admin">Admin</a></li> {% endif %}
+                    {% endif %}
+                    <li><a href="/ranking">Classement</a></li>
+
+                    {% if app.user%}
+                        <li><a href="/logout">Déconnexion</a></li>
+                    {% else %}
+                        <li><a href="/login">Connexion</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        </header>
+        <div class="main_container">
+            {% block body %}{% endblock %}
+        </div>    
     </body>
 </html>

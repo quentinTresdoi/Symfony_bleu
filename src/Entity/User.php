@@ -4,45 +4,45 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $pseudo = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
     #[ORM\Column]
-    private ?int $role = null;
+    private array $roles = [];
+
+    #[ORM\Column(length: 255)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $lastname = null;
 
     #[ORM\Column]
     private ?int $points = null;
 
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UsersChallenges::class,fetch:"EAGER")]
+    private Collection $usersChallenges;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): static
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -57,26 +57,25 @@ class User
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getFirstname(): ?string
     {
-        return $this->password;
+        return $this->firstname;
     }
 
-    public function setPassword(string $password): static
+    public function setFirstname(string $firstname): static
     {
-        $this->password = $password;
+        $this->firstname = $firstname;
 
         return $this;
     }
-
-    public function getRole(): ?int
+    public function getLastname(): ?string
     {
-        return $this->role;
+        return $this->lastname;
     }
 
-    public function setRole(int $role): static
+    public function setLastname(string $lastname): static
     {
-        $this->role = $role;
+        $this->lastname = $lastname;
 
         return $this;
     }
@@ -91,5 +90,110 @@ class User
         $this->points = $points;
 
         return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+       /**
+     * @return Collection<int, UsersChallenges>
+     */
+    public function getUsersChallenges(): Collection
+    {
+        return $this->usersChallenges;
+    }
+//
+    public function addUsersChallenge(UsersChallenges $usersChallenge): static
+    {
+        if (!$this->usersChallenges->contains($usersChallenge)) {
+            $this->usersChallenges->add($usersChallenge);
+            $usersChallenge->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersChallenge(UsersChallenges $usersChallenge): static
+    {
+        if ($this->usersChallenges->removeElement($usersChallenge)) {
+            // set the owning side to null (unless already changed)
+            if ($usersChallenge->getUser() === $this) {
+                $usersChallenge->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    /**
+     * @return string the hashed password for this user
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

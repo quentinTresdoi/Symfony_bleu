@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Modification | Challenge{% endblock %}
+
+{% block body %}
+        <h1 class="text-4xl font-bold text-emerald-950">Modification d'un challenge 📝</h1>
+
+        <div class="mt-10 max-w-xl">
+            {{ form_start(editTask) }}
+            {{ form_errors(editTask) }}
+            {{ form_row(editTask.title) }}
+            {{ form_row(editTask.description) }}
+            {{ form_row(editTask.points) }}
+            {{ form_row(editTask.categories) }}
+
+            <div class="mt-10 bg-orange-400 p-3 rounded-md hover:shadow-xl hover:shadow-orange-200 hover:bg-orange-300 active:scale-95 transition-all delay-100 ease-in-out w-fit">
+                {{ form_row(editTask.submit, { 'label': 'Modifier le challenge' }) }}
+            </div>
+            
+            {{ form_end(editTask) }}
+        </div>
+        
+
+{% endblock %}

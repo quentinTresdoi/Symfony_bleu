@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;800&display=swap');
+
+body {
+    background-color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+}
+
+.main_container{
+    max-width: 1280px;
+    margin: auto;
+    margin-top: 10rem;
+}
+@layer utilities{
+    .label-form{
+        @apply block text-green-950 text-sm mt-6
+    }
+
+    .input-form{
+        @apply mt-1 w-full border-b-2 border-neutral-300 p-2 focus:outline-none focus:ring-0 focus:border-green-300 focus:shadow-lg focus:shadow-green-200
+    }
+
+    .primary-btn{
+        @apply mt-10 bg-green-400 p-3 rounded-md hover:shadow-xl hover:shadow-green-200 hover:bg-green-300 active:scale-95 transition-all delay-100 ease-in-out w-fit
+    }
+
+    .challenge-icon{
+        @apply text-3xl p-2 px-4 rounded-lg;
+        display: flex;
+        align-items: center;
+
+    }
+
+    .challenge-icon i{
+        display: block;
+    }
+}
+
+#form_password_password, #form_password_confirm{
+    @apply mt-1 w-full border-b-2 border-neutral-300 p-2 focus:outline-none focus:ring-0 focus:border-green-300 focus:shadow-lg focus:shadow-green-200
+}
+
+#form_roles{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+#form_roles div{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#form_roles div label, #form_roles div input{
+    display: block;
+    margin: 0;
+    font-size: 1rem;
+}
+
