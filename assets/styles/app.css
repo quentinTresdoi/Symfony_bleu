@@ -11,8 +11,7 @@ body {
 
 .main_container{
     max-width: 1280px;
-    margin: auto;
-    margin-top: 10rem;
+    margin: 10rem auto;
 }
 @layer utilities{
     .label-form{
