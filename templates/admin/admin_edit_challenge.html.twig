@@ -13,7 +13,7 @@
             {{ form_row(editTask.description) }}
             {{ form_row(editTask.points) }}
             {{ form_row(editTask.categories) }}
-
+            {% if error %} <div class="text-red-500">{{ error }}</div>{% endif %}
             <div class="mt-10 bg-orange-400 p-3 rounded-md hover:shadow-xl hover:shadow-orange-200 hover:bg-orange-300 active:scale-95 transition-all delay-100 ease-in-out w-fit">
                 {{ form_row(editTask.submit, { 'label': 'Modifier le challenge' }) }}
             </div>
