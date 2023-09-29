@@ -15,7 +15,7 @@ class ChallengeType extends AbstractType
         $builder
         ->add('title', TextType::class, ['label' => 'Nom', 'required' => true])
         ->add('description', TextareaType::class, ['label' => 'Description', 'required' => true])
-        ->add('points',NumberType::class, ['label' => 'Points', 'required' => true])
+        ->add('points',NumberType::class, ['label' => 'Points', 'required' => true, 'invalid_message' => 'Veuillez mettre un nombre'])
         ->add('categories',TextType::class, ['label' => 'Catégorie', 'required' => true])
         ->add('submit', SubmitType::class, ['label' => 'Soumettre']);
     }

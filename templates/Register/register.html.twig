@@ -12,8 +12,15 @@
             {{ form_row(form.firstname) }}
             {{ form_row(form.lastname) }}
             {{ form_row(form.email) }}
-            {{ form_row(form.password.first)}}
-            {{ form_row(form.password.second)}}
+            {% if error %} <div class="text-red-500">{{ error }}</div>{% endif %}
+
+            {{ form_label(form.password.password, "Password") }}
+            {{ form_widget(form.password.password) }}
+
+            {{ form_label(form.password.confirm, "Repeat password") }}
+            {{ form_widget(form.password.confirm) }}
+
+            <div class="text-red-500">{{ form_errors(form.password)}}</div>
             {{ form_row(form.roles) }}
 
             <div class="mt-10 bg-green-400 p-3 rounded-md hover:shadow-xl hover:shadow-green-200 hover:bg-green-300 active:scale-95 transition-all delay-100 ease-in-out w-fit">

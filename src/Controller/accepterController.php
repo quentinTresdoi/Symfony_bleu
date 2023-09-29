@@ -19,14 +19,22 @@ class accepterController extends AbstractController
             'challenge' => $challenge,
             'user' => $this->getUser()
         ]);
-        if ($userchallenge == null){        //Vérification si le userChallenge existe déjà
+        $isUserchallenge = $this->getDoctrine()->getRepository(UsersChallenges::class)->findOneBy([      //Récupération du UserChallenge grâce au challenge et au User connecter
+            'status' => '0',
+            'user' => $this->getUser()
+        ]);
+
+        if ($isUserchallenge){        //Vérification si le userChallenge existe déjà
+            return $this->redirectToRoute('challenge_details', ['id' => $id]);      
+        } elseif ($userchallenge == null) {
             $challengeAccepter = new UsersChallenges();     //Création du userChallenge pour le user et challenge recupérer 
             $challengeAccepter->setUser($this->getUser());
             $challengeAccepter->setChallenge($challenge);
             $em = $this->getDoctrine()->getManager();   
             $em->persist($challengeAccepter);       //Implémentation dans la BDD
             $em->flush();
-            return $this->redirectToRoute('homepage');          
+            return $this->redirectToRoute('homepage'); 
+             
         }
         else{
             return new Response("L'utilisateur a déjà accépter se challenge");
@@ -39,16 +47,22 @@ class accepterController extends AbstractController
             'challenge' => $challenge,
             'user' => $this->getUser()
         ]);
-        if ($userchallenge->getStatus() == 0){            //Vérification que c'est en userChallenge en cours 
-            $this->getUser()->setPoints($this->getUser()->getPoints()+$challenge->getPoints());     //ajoute les points du challenge au point du user
-            $userchallenge->setStatus(1);
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-            return $this->redirectToRoute('homepage');            
+
+        if ($userchallenge){
+            if ($userchallenge->getStatus() == 0){            //Vérification que c'est en userChallenge en cours 
+                $this->getUser()->setPoints($this->getUser()->getPoints()+$challenge->getPoints());     //ajoute les points du challenge au point du user
+                $userchallenge->setStatus(1);
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
+                return $this->redirectToRoute('homepage');            
+            }
+            else{
+                return $this->redirectToRoute('challenge_details', ['id' => $id]);    
+            }
+        }else{
+            return $this->redirectToRoute('challenge_details', ['id' => $id]);
         }
-        else{
-            return new Response("Erreur");
-        }
+        
     }
     
 }

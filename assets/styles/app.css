@@ -35,3 +35,26 @@ body {
         display: block;
     }
 }
+
+#form_password_password, #form_password_confirm{
+    @apply mt-1 w-full border-b-2 border-neutral-300 p-2 focus:outline-none focus:ring-0 focus:border-green-300 focus:shadow-lg focus:shadow-green-200
+}
+
+#form_roles{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+#form_roles div{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#form_roles div label, #form_roles div input{
+    display: block;
+    margin: 0;
+    font-size: 1rem;
+}
+

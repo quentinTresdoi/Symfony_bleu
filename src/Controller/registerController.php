@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\Category;
+use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class registerController extends AbstractController
@@ -36,9 +37,11 @@ class registerController extends AbstractController
             ->add('email', EmailType::class)
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les mots de passe ne sont pas identiques',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
+                'first_name' => 'password',
+                'second_name' => 'confirm',
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
             ])
@@ -56,8 +59,12 @@ class registerController extends AbstractController
             ->getForm();
 
         $form->handleRequest($request);
+        
+        $e = null;
+
         if ($form->isSubmitted() && $form->isValid()) {
 
+            
             $user->setPoints(0);
             
             $plaintextPassword = $user->getPassword();
@@ -67,13 +74,20 @@ class registerController extends AbstractController
             );
             $user->setPassword($hashedPassword);
             $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-            return $this->redirectToRoute("app_login");
+            try {
+                $em->persist($user);
+                $em->flush();
+                return $this->redirectToRoute("app_login");
+            } catch (\Exception $e) {
+                $e = "Cet e-mail existe déjà";
+            }
+            
+            
         }
-        return $this->render('Register/register.html.twig', array(
+        return $this->render('Register/register.html.twig', [
             'form' => $form->createView(),
-        ));
+            'error' => $e
+        ]);
 
         // $errors = $form->getErrors();
         // if($errors = $form->getErrors(true)){

@@ -25,6 +25,14 @@ class ChallengeDetailsController extends AbstractController
         return $userAlreadyCompletedChallenge;
     }
 
+    public function alreadyMakeChallenge(){
+        $isUserchallenge = $this->getDoctrine()->getRepository(UsersChallenges::class)->findOneBy([
+            'status' => '0',
+            'user' => $this->getUser()
+        ]);
+        return $isUserchallenge;
+    }
+
     #[Route('/challenge/{id}', name: 'challenge_details')]
     public function getChallenge($id){
         
@@ -33,11 +41,14 @@ class ChallengeDetailsController extends AbstractController
         $userChallenge = $this->challengeIsCompleted($this->getUser(),$challenge);
 
         $userAlreadyCompleted = $this->challengeAlreadyCompleted($this->getUser(),$challenge);
+
+        $userAlreadyMakeChallenge = $this->alreadyMakeChallenge();
            
         return $this->render('challenge/challenge.html.twig', [
             'challenge' => $challenge,
             'userChallenge' => $userChallenge,
-            'userAlreadyCompleted' => $userAlreadyCompleted
+            'userAlreadyCompleted' => $userAlreadyCompleted,
+            'userAlreadyMakeChallenge' => $userAlreadyMakeChallenge
         ]);
     }
 

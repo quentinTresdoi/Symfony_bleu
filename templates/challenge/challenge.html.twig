@@ -21,6 +21,8 @@
             <p class="primary-btn"><span class="opacity-60 font-bold">Déjà fait !</span></p>
         {% elseif userChallenge %}
             <a class="primary-btn" href={{ url('valider_challenge', {'id': challenge.id} ) }}><span class="opacity-60 font-bold">Valider</span></a>
+        {% elseif userAlreadyMakeChallenge %}
+            <p class="primary-btn"><span class="opacity-60 font-bold">Vous faites déjà un challenge !</span></p>
         {% else %}
             <a class="primary-btn" href={{ url('accepter_challenge', {'id': challenge.id} ) }}><span class="opacity-60 font-bold">Faire une bonne action</span></a>
         {% endif %}
