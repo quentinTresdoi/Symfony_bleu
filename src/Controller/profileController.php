@@ -21,6 +21,10 @@ class profileController extends AbstractController
     public function filterArray($element){
         return $element->getStatus() == 1 ;
     }
+
+    public function getUserTaskCompletedCount($user){
+        return count($this->getDoctrine()->getRepository(UsersChallenges::class)->findBy(['user'=>$user, 'status'=>1]));
+    }
     /**
      * @Route("/profil", name="app_profil")
      */
@@ -30,6 +34,7 @@ class profileController extends AbstractController
         // info user
             $user= $this->getUser();
             $challenges = [];
+            $completedTaskNumber = $this->getUserTaskCompletedCount($user);
 
             $roles=$user->getRoles();
             if($roles = ["ROLE_ADMIN"]){
@@ -50,7 +55,8 @@ class profileController extends AbstractController
         return $this->render('profil/profil.html.twig', [
             'user' => $user,
             'role' => $roles,
-            'challengevalid' =>$challenges
+            'challengevalid' =>$challenges,
+            'completedTaskNumber'=>$completedTaskNumber
         ]);
     }
 

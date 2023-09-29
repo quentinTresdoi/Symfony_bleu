@@ -15,6 +15,19 @@ class HomeController extends AbstractController{
         return $element->getChallenge()->getId();
     }
 
+    public function mapArrayChallenge($element){
+        return $element->getChallenge();
+    }
+
+    public function getCurrentUserChallenge($user){
+        $currentChallenge = $this->getDoctrine()->getRepository(UsersChallenges::class)->findBy(['user'=>$user, 'status'=>0]);
+        if ($currentChallenge) {
+           return array_map([$this,'mapArrayChallenge'],$currentChallenge);
+        }else{
+            return null;
+        }
+    }
+
     #[Route('/', name:"homepage")]
     public function generateChallenge(){
         $user = $this->getUser();
@@ -23,16 +36,21 @@ class HomeController extends AbstractController{
         if ($user) {
             $allUserChallenge = $user->getUsersChallenges()->getSnapshot();
 
-            $allUserChallengeId = array_map([$this, 'mapArray'],$allUserChallenge);
-    
-            $challenges = $this->getDoctrine()->getRepository(Challenges::class)->getSomesChallenges($allUserChallengeId);
+            if ($allUserChallenge) {
+                $allUserChallengeId = array_map([$this, 'mapArray'],$allUserChallenge);
+                $challenges = $this->getDoctrine()->getRepository(Challenges::class)->getSomesChallenges($allUserChallengeId);
+            }else{
+                $challenges = $this->getDoctrine()->getRepository(Challenges::class)->findAll();
+            }
+            
         }else{
             $challenges = $this->getDoctrine()->getRepository(Challenges::class)->findAll();
         }
         
 
         return $this->render('home/home.html.twig', [
-            "challenges" => $challenges
+            "challenges" => $challenges,
+            "currentChallenges" => $this->getCurrentUserChallenge($user)
         ]);
     }
 }

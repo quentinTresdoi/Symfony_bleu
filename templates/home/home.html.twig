@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% import 'macros.html.twig' as macros %}
+
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
@@ -7,19 +9,56 @@
 <h1 class="text-4xl font-bold text-emerald-950">Hello, {% if app.user %} {{app.user.firstname}} {% else %} Visiteur {% endif%} 👋</h1>
 
 <div class="mt-10">
+
+{% if currentChallenges %}
+    <h2 class="text-3xl font-bold text-emerald-950"> Tâches en cours</h2>
+    <div class="grid grid-cols-3 mt-10 gap-5">
+    {% for currentChallenge in currentChallenges %}
+     <a href={{ url('challenge_details', {'id': currentChallenge.id} ) }}>
+        <div class=" h-26 flex flex-col p-4 gap-1.5 bg-white border rounded-xl shadow-xl shadow-gray hover:scale-110 transition-all ease-in-out delay-75">
+
+                    <div class="flex flex-row gap-4 items-center">
+
+                        <span class="block">{{ macros.getCategoryIcon(currentChallenge.categories | lower)}}</span>
+                        <div class="flex flex-row justify-between w-full items-center gap-4">
+                            <span class="block max-w-sm">
+                                {% if currentChallenge.title | length > 40 %}
+                                    {{ currentChallenge.title | slice(0, 40) ~ '...' }}
+                                {% else %}
+                                    {{ currentChallenge.title }}
+                                {% endif %}
+                            </span>
+                            <span class="block bg-slate-200 px-3 rounded-md"> <span class="font-semibold opacity-50">{{currentChallenge.points}}</span></span>
+                        </div>
+                    
+                    </div>
+        </div>
+    </a>
+    {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div class="mt-10">
+
 <h2 class="text-3xl font-bold text-emerald-950"> Tâches disponibles</h2>
  <div class="mt-10 grid grid-cols-3 gap-5">
         {% for challenge in challenges %}
             <a href={{ url('challenge_details', {'id': challenge.id} ) }}>
-                <div class="flex flex-col p-4 gap-1.5 bg-white border rounded-xl shadow-xl shadow-gray hover:scale-110 transition-all ease-in-out delay-75">
+                <div class=" h-26 flex flex-col p-4 gap-1.5 bg-white border rounded-xl shadow-xl shadow-gray hover:scale-110 transition-all ease-in-out delay-75">
 
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-row gap-4 items-center">
 
-                    <span class="block">{{challenge.categories}}</span>
-
-                    <div class="flex flex-row justify-between">
-                        <span class="block max-w-sm truncate">{{ challenge.title }}</span>
-                        <span class="block">{{challenge.points}}</span>
+                    <span class="block">{{ macros.getCategoryIcon(challenge.categories | lower)}}</span>
+                    <div class="flex flex-row justify-between w-full items-center gap-4">
+                        <span class="block max-w-sm">
+                            {% if challenge.title | length > 40 %}
+                                {{ challenge.title | slice(0, 40) ~ '...' }}
+                            {% else %}
+                                {{ challenge.title }}
+                            {% endif %}
+                        </span>
+                        <span class="block bg-slate-200 px-3 rounded-md"> <span class="font-semibold opacity-50">{{challenge.points}}</span></span>
                     </div>
                 
                 </div>

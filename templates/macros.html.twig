@@ -1,0 +1,77 @@
+{% macro getCategoryIcon(category) %}
+    {% if category == 'energie' %}
+        <div class="bg-yellow-300 challenge-icon">
+            <i class="fa-solid fa-bolt opacity-50"></i>
+        </div>
+        
+    {% elseif category == 'transport' %}
+        <div class="bg-indigo-300 challenge-icon">
+            <i class="fa-solid fa-car opacity-50"></i>
+        </div>
+        
+    {% elseif category == 'apprentissage' %}
+        <div class="bg-purple-300 challenge-icon">
+            <i class="fa-solid fa-graduation-cap opacity-50"></i>
+        </div>
+        
+    {% elseif category == 'déchets' %}
+        <div class="bg-pink-300 challenge-icon">
+            <i class="fa-solid fa-trash opacity-50"></i>
+        </div>
+        
+    {% elseif category == 'partage' %}
+        <div class="bg-teal-300 challenge-icon">
+            <i class="fa-solid fa-comments opacity-50"></i>
+        </div>
+       
+    {% elseif category == 'consommation intelligente' %}
+        <div class="bg-lime-300 challenge-icon">
+            <i class="fa-solid fa-apple-whole opacity-50"></i>
+        </div>
+        
+    {% elseif category == 'biologique' %}
+        <div class="bg-emerald-300 challenge-icon" >
+            <i class="opacity-50 fa-solid fa-seedling"></i>
+        </div>
+    {% elseif category == 'emballage' %}
+        <div class="bg-cyan-300 challenge-icon">
+            <i class="fa-solid fa-envelope opacity-50"></i>
+        </div>
+        
+    {% elseif category == 'au travail' %}
+        <div class="bg-blue-300 challenge-icon">
+            <i class="fa-solid fa-briefcase opacity-50"></i>
+        </div>
+        
+    {% elseif category == 'chez soi' %}
+        <div class="bg-violet-300 challenge-icon">
+            <i class="fa-solid fa-house opacity-50"></i>
+        </div>
+        
+    {% elseif category == 'alimentation' %}
+        <div class="bg-emerald-300 challenge-icon">
+            <i class="fa-solid fa-drumstick-bite opacity-50"></i>
+        </div>
+        
+    {% elseif category == 'loisir' %}
+        <div class="bg-orange-300 challenge-icon">
+            <i class="fa-solid fa-paintbrush opacity-50"></i>
+        </div>
+        
+    {% elseif category == 'equipement' %}
+        <div class="bg-amber-300 challenge-icon">
+            <i class="fa-solid fa-screwdriver-wrench opacity-50"></i>
+        </div>
+        
+    {% elseif category == 'achat' %}
+        <div class="bg-sky-300 challenge-icon">
+            <i class="fa-solid fa-store opacity-50"></i>
+        </div>
+        
+    {% else %}
+        <div class="bg-stone-300 challenge-icon">
+            <i class="fa-solid fa-circle-question opacity-50"></i>
+        </div>
+        
+    {% endif %}
+{% endmacro %}

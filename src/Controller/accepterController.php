@@ -26,7 +26,7 @@ class accepterController extends AbstractController
             $em = $this->getDoctrine()->getManager();   
             $em->persist($challengeAccepter);       //Implémentation dans la BDD
             $em->flush();
-            return $this->redirectToRoute('challenge_details', ['id' => $id]);          
+            return $this->redirectToRoute('homepage');          
         }
         else{
             return new Response("L'utilisateur a déjà accépter se challenge");
@@ -44,7 +44,7 @@ class accepterController extends AbstractController
             $userchallenge->setStatus(1);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            return new Response("Challenge valider");            
+            return $this->redirectToRoute('homepage');            
         }
         else{
             return new Response("Erreur");
