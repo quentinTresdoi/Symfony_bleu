@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController{
     public function allUserNumber(){
-        return count($this->getDoctrine()->getRepository(User::class)->findAll());
+        return $this->getDoctrine()->getRepository(User::class)->getUsersCount();
     }
 
     public function allChallengesCreated(){
