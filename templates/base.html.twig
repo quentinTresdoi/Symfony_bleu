@@ -14,8 +14,8 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head> 
-    <body>
-        <header class="fixed left-0 border-r-2 h-full top-0 pr-10">
+    <body class="flex flex-row">
+        <header class="sticky left-0 border-r-2 h-full top-0 pr-10">
             <nav>
             <div class="flex flex-col px-10"> 
                 <span class="mt-40">Menu</span>
@@ -36,7 +36,8 @@
             </div>
         </nav>
         </header>
-        
-        {% block body %}{% endblock %}
+        <div>
+            {% block body %}{% endblock %}
+        </div>    
     </body>
 </html>
