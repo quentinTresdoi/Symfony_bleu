@@ -5,12 +5,15 @@
 
 body {
     background-color: white;
-    margin: 10rem auto;
     font-family: 'Inter', sans-serif;
     font-size: 20px;
-    gap: 10rem;
 }
 
+.main_container{
+    max-width: 1280px;
+    margin: auto;
+    margin-top: 10rem;
+}
 @layer utilities{
     .label-form{
         @apply block text-green-950 text-sm mt-6
